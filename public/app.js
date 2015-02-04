@@ -1,60 +1,68 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+/*
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+  ===================================
+  Using the $locationProvider and why
+  ===================================
 
-var app = express();
+  The location provider is a built-in AngularJS service for configuring
+  application linking paths. Using this service you can enable HTML pushState
+  to change the URL Prefix from # to something like #!
+  for example i would like to use Disqus comments in my angularJS application.
+  by adding the $locationProvider parameter to the config's callback
+  function is enough to tell AngularJS to inject that service to make it
+  available.
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+*/
+/*
+angular.module has several strings within the array.
+the name of the service to inject for the corresponding parameter.
+*/
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap'])
+  .config(function('$locationProvider', function($locationProvider) ) {
+    $locationProvider.html5Mode(true);
 
-app.use('/', routes);
-app.use('/users', users);
+    /*
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+        We will inject the $routeProvider and add the following routes
+        =================================================
+        Home - display a list of popular shows
+        Detail - information about one particular TV show.
+        Login - user login form.
+        Signup - user signup form.
+        Add - add a new show form.
+        =================================================
 
-// error handlers
+    */
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
+    /* inject $routeProvider in config then add these routes: */
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+    $routeProvider
+      .when('/', {
+        templateUrl: 'views/home.html',
+        controller: 'MainCtrl'
+      })
+      .when('shows/:id',{
+        templateUrl:'views/details.html',
+        controller: 'DetailCtrl'
+      })
+      .when('login/',{
+        templateUrl: 'views/login.html',
+        controller: 'SignupCtrl'
+      })
+      .when('/add',{
+        templateUrl: 'views/add.html',
+        controller: 'AddCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
 
 
-module.exports = app;
+      /*
+
+        For each route there is a template and a controller
+        You only need a controller if you have a page used for dynamic content/
+        otherwise the need for specified controller is irrelevant.
+        
+      */
