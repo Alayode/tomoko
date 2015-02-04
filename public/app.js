@@ -19,7 +19,7 @@ the name of the service to inject for the corresponding parameter.
 */
 
 angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap'])
-  .config(function('$locationProvider', function($locationProvider) ) {
+  .config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider)  {
     $locationProvider.html5Mode(true);
 
     /*
@@ -48,8 +48,12 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
       })
       .when('login/',{
         templateUrl: 'views/login.html',
-        controller: 'SignupCtrl'
+        controller: 'LoginCtrl'
       })
+      .when('/signup', {
+            templateUrl: 'views/signup.html',
+            controller: 'SignupCtrl'
+        })
       .when('/add',{
         templateUrl: 'views/add.html',
         controller: 'AddCtrl'
@@ -58,11 +62,11 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
         redirectTo: '/'
       });
 
-
+}]);
       /*
 
         For each route there is a template and a controller
         You only need a controller if you have a page used for dynamic content/
         otherwise the need for specified controller is irrelevant.
-        
+
       */
