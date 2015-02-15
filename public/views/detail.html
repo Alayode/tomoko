@@ -38,3 +38,27 @@
             </div>
         </div>
     </div>
+
+
+    <div class="alert alert-info" ng-show="nextEpisode">
+        The next episode starts {{nextEpisode.firstAired | fromNow}}.
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-play"></span> Episodes
+        </div>
+        <div class="panel-body">
+            <div class="episode" ng-repeat="episode in show.episodes">
+                <h4>{{episode.episodeName}}
+                    <small>Season {{episode.season}}, Episode {{episode.episodeNumber}}</small>
+                </h4>
+                <p>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    {{episode.firstAired | date: 'short'}}
+                </p>
+                <p>{{episode.overview}}</p>
+            </div>
+        </div>
+    </div>
+</div>
