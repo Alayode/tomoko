@@ -6,22 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KaraokeIndx</title>
-    <link rel="icon" type="image/png" href="favicon.png"/>
-    <link href="/stylesheets/style.scss" rel="stylesheet">
-    <link href="/stylesheets/style.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.css">
-    <link rel="stylesheet" href="stylesheets/bootstrap/bootstrap.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link href="favicon.png" rel="icon" type="image/png">
+    <link href='http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="//cdn.jsdelivr.net/ionicons/1.4.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="stylesheets/animate.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body >
-<div class="navbar navbar-default navbar-static-top" role="navigation" bs-navbar>
+<div class="navbar navbar-inverse navbar-static-top" role="navigation" bs-navbar>
     <div class="navbar-header">
         <a class="navbar-brand" href="/">
             <span class="glyphicon glyphicon-eye"></span>
@@ -35,8 +30,8 @@
         <li data-match-route="/add"><a href="/add">Add</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-        <li data-match-route="/login"><a href="/login">Login</a></li>
-        <li data-match-route="/signup"><a href="/signup">Sign up</a></li>
+        <li data-match-route="/login"><a href="/login"> <span class="glyphicon glyphicon-user"></span>Login</a></li>
+        <li data-match-route="/signup"><a href="/signup"><span class="glyphicon glyphicon-log-in"></span>Sign up</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="currentUser">
         <li class="navbar-text" ng-bind="currentUser.email"></li>
