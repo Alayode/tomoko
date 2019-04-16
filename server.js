@@ -4,13 +4,13 @@
 
 var path = require('path');
 var express = require('express');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 // var logger = require('morgan');
 // var crypto = require('crypto');
-// var bcrypt = require('bcryptjs');
-// var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
+var mongoose = require('mongoose');
 // var jwt = require('jwt-simple');
 // var moment = require('moment');
 
@@ -22,6 +22,7 @@ var cookieParser = require('cookie-parser');
 // var sugar = require('sugar');
 // var nodemailer = require('nodemailer');
 // var _ = require('lodash');
+// var User = mongoose.model('User', userSchema);
 
 
 // var userSchema = new mongoose.Schema({
@@ -49,15 +50,56 @@ var cookieParser = require('cookie-parser');
 //   });
 // };
 
+var showSchema = new mongoose.Schema({
+  _id: Number,
+  name: String,
+  airsDayOfWeek: String,
+  airsTime: String,
+  firstAired: Date,
+  genre: [String],
+  network: String,
+  overview: String,
+  rating: Number,
+  ratingCount: Number,
+  status: String,
+  poster: String,
+  subscribers: [{
+      type: mongoose.Schema.Types.ObjectId, ref: 'User'
+  }],
+  episodes: [{
+      season: Number,
+      episodeNumber: Number,
+      episodeName: String,
+      firstAired: Date,
+      overview: String
+  }]
+});
 // Connect to the database
-// mongoose.connect('mongodb://azuramei:uevol11@ds045511.mlab.com:45511/excalibur');
+const uri = 'mongodb://ds045511.mlab.com:45511/excalibur';
+mongoose.connect(uri, {useNewUrlParser: true});
 
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
 // app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+
+// app.get('/api/shows', function(req, res, next) {
+//   var query = Show.find();
+//   if (req.query.genre) {
+//       query.where({ genre: req.query.genre });
+//   } else if (req.query.alphabet) {
+//       query.where({ name: new RegExp('^' + '[' + req.query.alphabet + ']', 'i') });
+//   } else {
+//       query.limit(12);
+//   }
+//   query.exec(function(err, shows) {
+//       if (err) return next(err);
+//       res.send(shows);
+//   });
+// });
+
+
+var Show = mongoose.model('Show', showSchema);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
