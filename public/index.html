@@ -21,6 +21,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="styles.css">
+
+<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCkNdCGj_y6UGwf6mF1NF3_BwXg6LWd8ys",
+    authDomain: "anime-index.firebaseapp.com",
+    databaseURL: "https://anime-index.firebaseio.com",
+    projectId: "anime-index",
+    storageBucket: "anime-index.appspot.com",
+    messagingSenderId: "670737067097"
+  };
+  firebase.initializeApp(config);
+</script>
 </head>
 <body >
 <div class="navbar navbar-inverse navbar-static-top" role="navigation" bs-navbar>
@@ -37,12 +51,12 @@
         <li data-match-route="/add"><a href="/add">Add</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-        <li data-match-route="/login"><a href="/login"> <span class="glyphicon glyphicon-user"></span>Login</a></li>
-        <li data-match-route="/signup"><a href="/signup"><span class="glyphicon glyphicon-log-in"></span>Sign up</a></li>
+        <!-- <li data-match-route="/login"><a href="/login"> <span class="glyphicon glyphicon-user"></span>Login</a></li> -->
+        <!-- <li data-match-route="/signup"><a href="/signup"><span class="glyphicon glyphicon-log-in"></span>Sign up</a></li> -->
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="currentUser">
         <li class="navbar-text" ng-bind="currentUser.email"></li>
-        <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+        <!-- <li><a href="javascript:void(0)" aria-disabled="true" ng-click="logout()">Logout</a></li> -->
     </ul>
 </div>
 
