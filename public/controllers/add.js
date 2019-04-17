@@ -13,6 +13,7 @@
 angular.module('MyApp')
     .controller('AddCtrl', function($scope, $alert, Show) {
         $scope.addShow = function() {
+            console.log($scope.showName);
             Show.save({ showName: $scope.showName }).$promise
                 .then(function() {
                     $scope.showName = '';
