@@ -51,8 +51,8 @@
         <li data-match-route="/add"><a href="/add">Add</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-        <!-- <li data-match-route="/login"><a href="/login"> <span class="glyphicon glyphicon-user"></span>Login</a></li> -->
-        <!-- <li data-match-route="/signup"><a href="/signup"><span class="glyphicon glyphicon-log-in"></span>Sign up</a></li> -->
+        <li data-match-route="/login"><a href="/login"> <span class="glyphicon glyphicon-user"></span>Login</a></li>
+        <li data-match-route="/signup"><a href="/signup"><span class="glyphicon glyphicon-log-in"></span>Sign up</a></li>
     </ul>
     <ul class="nav navbar-nav pull-right" ng-if="currentUser">
         <li class="navbar-text" ng-bind="currentUser.email"></li>
