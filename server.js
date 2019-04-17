@@ -1,16 +1,9 @@
 //var session = require('express-session');
 //var passport = require('passport');
 //var LocalStrategy = require('passport-local').Strategy;
-
-var path = require('path');
-var express = require('express');
-// var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
 // var logger = require('morgan');
 // var crypto = require('crypto');
-var bcrypt = require('bcryptjs');
-var mongoose = require('mongoose');
+
 // var jwt = require('jwt-simple');
 // var moment = require('moment');
 
@@ -22,6 +15,15 @@ var mongoose = require('mongoose');
 // var sugar = require('sugar');
 // var nodemailer = require('nodemailer');
 // var _ = require('lodash');
+
+//  Deprecated since mongoose handles it natively
+// var bodyParser = require('body-parser');
+
+var path = require('path');
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var bcrypt = require('bcryptjs');
+var mongoose = require('mongoose');
 // var User = mongoose.model('User', userSchema);
 
 
@@ -78,12 +80,14 @@ var showSchema = new mongoose.Schema({
 const uri = 'mongodb://excalibur:uevol1101@ds045511.mlab.com:45511/excalibur';
 mongoose.connect(uri, {useMongoClient: true});
 
-var app = express();
 
-app.set('port', process.env.PORT || 3000);
-// app.use(logger('dev'));
+// 
+var backEndApp = express();
 
-app.get('/api/shows', function(req, res, next) {
+backEndApp.set('port', process.env.PORT || 3000);
+// backEndApp.use(logger('dev'));
+
+backEndApp.get('/api/shows', function(req, res, next) {
   var query = Show.find();
   if (req.query.genre) {
       query.where({ genre: req.query.genre });
@@ -98,14 +102,14 @@ app.get('/api/shows', function(req, res, next) {
   });
 });
 
-app.get('/api/shows/:id', function(req, res, next) {
+backEndApp.get('/api/shows/:id', function(req, res, next) {
     Show.findById(req.params.id, function(err, show) {
         if (err) return next(err);
         res.send(show);
     });
 });
 
-app.post('/api/shows', function (req, res, next) {
+backEndApp.post('/api/shows', function (req, res, next) {
   var seriesName = req.body.showName
       .toLowerCase()
       .replace(/ /g, '_')
@@ -189,9 +193,9 @@ app.post('/api/shows', function (req, res, next) {
 
 
 var Show = mongoose.model('Show', showSchema);
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+backEndApp.use(cookieParser());
+backEndApp.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+backEndApp.listen(backEndApp.get('port'), function() {
+  console.log('Express server listening on port ' + backEndApp.get('port'));
 });
